@@ -2,8 +2,8 @@ import React from "react";
 import proptypes from "prop-types"
 import styled from "styled-components";
 
-const ControlledInput = ( {type, name, onChange, value} ) => {
-    return <StyledInput onChange={onChange} type={type} name={name} value={value}></StyledInput>
+const ControlledInput = ( {type, name, onChange, value, title, pattern} ) => {
+    return <StyledInput  onChange={onChange} type={type} name={name} value={value} title={title} pattern={pattern}></StyledInput>
 }
 
 const StyledInput = styled.input`
