@@ -5,17 +5,24 @@ import Input from '../../atoms/Input/Input';
 
 class Contacts extends Component {
   render() {
-    const { contacts } = this.props;
+    const { contacts, value, onChange, filterValue } = this.props;
     return (
       <>
         <h2>Contacts</h2>
+        <p>Find contacts by name</p>
+        <Input type="text" name="filter" value={value} onChange={onChange} />
         <ul>
-          {contacts?.map(({ name, number }) => {
-            return (
-              <li key={name + number}>
-                {name}: {number}
-              </li>
-            );
+          {contacts?.map(contact => {
+            const lowerContact = contact.name.toLowerCase();
+            const markup = <li key={contact.name + contact.number}>
+            {contact.name}: {contact.number}
+          </li>;
+            if (!filterValue) {
+              return markup
+            }
+            if (lowerContact.includes(filterValue.toLowerCase())) {
+              return markup
+            }
           })}
         </ul>
       </>
