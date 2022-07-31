@@ -9,7 +9,6 @@ class Form extends Component {
     const {telName, textName, onChange, onSubmit, textValue, telValue } = this.props;
     return (
       <>
-        <h1>Phonebook</h1>
         <form onSubmit={onSubmit}>
           <p>Name</p>
           <ControlledInput type="text" name='name' onChange={onChange} value={textValue} pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$" title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"/>
