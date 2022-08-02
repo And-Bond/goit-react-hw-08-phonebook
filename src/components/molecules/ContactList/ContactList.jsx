@@ -4,8 +4,10 @@ import styled from 'styled-components';
 import Input from '../../atoms/Input/Input';
 
 class Contacts extends Component {
+
   render() {
-    const { contacts, filterValue } = this.props;
+    const { contacts, filterValue, onDeleteClick } = this.props;
+    
     return (
       <>
         {contacts.map(contact => {
@@ -15,6 +17,7 @@ class Contacts extends Component {
           return (
             <li key={contact.name + contact.number}>
               {contact.name}: {contact.number}
+              <button onClick={onDeleteClick} type='click' name={contact.name}>Delete</button>
             </li>
           );
         })}

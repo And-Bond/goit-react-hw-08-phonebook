@@ -15,9 +15,9 @@ export class App extends Component {
     name: '',
     number: '',
   };
-  onChange = e => {
+  onChange = (e, data) => {
     this.setState({
-      [e.target.name]: e.target.value,
+      [data]: e.target.value,
     });
   };
   onFilterChange = e => {
@@ -26,19 +26,39 @@ export class App extends Component {
     });
   };
   onSubmit = e => {
+    let isInclude = false
     e.preventDefault();
     if (this.state.name === '' || this.state.number === '') {
       return;
     }
-    this.setState({
-      contacts: [
-        ...this.state.contacts,
-        { name: this.state.name, number: this.state.number, id: nanoid() },
-      ],
-      name: '',
-      number: '',
-    });
+    this.state.contacts.map(contact => {
+       if(contact.name === e.target.name.value){
+        alert(`${this.state.name} is already at contacts`)
+        this.setState({
+          name: "",
+          number: ""
+        })
+        return isInclude = true
+       }
+    })
+    if(!isInclude){
+      this.setState({
+        contacts: [
+          ...this.state.contacts,
+          { name: this.state.name, number: this.state.number, id: nanoid() },
+        ],
+        name: '',
+        number: '',
+      });
+    }
+    
   };
+  onDeleteClick = (e) => {
+    this.setState({
+      contacts: this.state.contacts.filter(contact => {return contact.name !== this.state.name})
+    })
+    console.log('aaaaaaa')
+  }
   render() {
     return (
       <div>
@@ -57,11 +77,13 @@ export class App extends Component {
             contacts={this.state.contacts}
             value={this.state.filter}
             onChange={this.onFilterChange}
+            onDeleteClick={this.onDeleteClick}
           />
           <ul>
           <ContactList
             filterValue={this.state.filter}
             contacts={this.state.contacts}
+            onDeleteClick={this.onDeleteClick}
           />
           </ul>
       </div>
