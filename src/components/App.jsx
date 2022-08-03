@@ -3,6 +3,7 @@ import ContactForm from './molecules/ContactForm/ContactForm';
 import Filter from './molecules/Filter/Filter';
 import ContactList from './molecules/ContactList/ContactList';
 import { nanoid } from 'nanoid';
+import styled from 'styled-components';
 export class App extends Component {
   state = {
     contacts: [
@@ -12,95 +13,70 @@ export class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    name: '',
-    number: '',
-  };
-  onChange = (e, data) => {
-    this.setState({
-      [data]: e.target.value,
-    });
   };
   onFilterChange = e => {
     this.setState({
       filter: e.target.value,
     });
   };
-  onSubmit = e => {
-    let isInclude = false
+  onSubmit = (e, data) => {
+    let isInclude = false;
     e.preventDefault();
-    if (this.state.name === '' || this.state.number === '') {
+    if (data.name === '' || data.number === '') {
       return;
     }
     this.state.contacts.map(contact => {
-       if(contact.name === e.target.name.value){
-        alert(`${this.state.name} is already at contacts`)
-        this.setState({
-          name: "",
-          number: ""
-        })
-        return isInclude = true
-       }
-    })
-    if(!isInclude){
+      if (contact.name === data.name) {
+        alert(`${data.name} is already at contacts`);
+        return (isInclude = true);
+      }
+    });
+    if (!isInclude) {
       this.setState({
         contacts: [
           ...this.state.contacts,
-          { name: this.state.name, number: this.state.number, id: nanoid() },
+          { name: data.name, number: data.number, id: nanoid() },
         ],
-        name: '',
-        number: '',
       });
     }
-    
   };
-  onDeleteClick = (e) => {
+  onDeleteClick = (e, data) => {
     this.setState({
-      contacts: this.state.contacts.filter(contact => {return contact.name !== this.state.name})
-    })
-    console.log('aaaaaaa')
-  }
+      contacts: this.state.contacts.filter(contact => {
+        return contact.name !== data;
+      }),
+    });
+  };
   render() {
     return (
       <div>
         <h1>Phonebook</h1>
-        <ContactForm
-          telName={this.state.number}
-          textName={this.state.name}
-          onChange={this.onChange}
-          onSubmit={this.onSubmit}
-          textValue={this.state.name}
-          telValue={this.state.number}
-        />
+        <ContactForm onSubmit={this.onSubmit} />
 
         <h2>Contacts</h2>
-          <Filter
-            contacts={this.state.contacts}
-            value={this.state.filter}
-            onChange={this.onFilterChange}
-            onDeleteClick={this.onDeleteClick}
-          />
-          <ul>
+        <Filter
+          contacts={this.state.contacts}
+          value={this.state.filter}
+          onChange={this.onFilterChange}
+          onDeleteClick={this.onDeleteClick}
+        />
+        <ListStyled>
           <ContactList
             filterValue={this.state.filter}
             contacts={this.state.contacts}
             onDeleteClick={this.onDeleteClick}
           />
-          </ul>
+        </ListStyled>
       </div>
-      // <>
-      //   <ContactForm
-      //     telName={this.state.number}
-      //     textName={this.state.name}
-      //     onChange={this.onChange}
-      //     onSubmit={this.onSubmit}
-      //     textValue={this.state.name}
-      //     telValue={this.state.number}
-      //   ></ContactForm>
-      //   <ContactList
-      //     filterValue={this.state.filter}
-      //     contacts={this.state.contacts}
-      //   ></ContactList>
-      // </>
     );
   }
 }
+
+
+const ListStyled = styled.ul`
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+`;

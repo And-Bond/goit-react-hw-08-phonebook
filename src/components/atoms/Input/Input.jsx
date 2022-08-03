@@ -7,7 +7,8 @@ const ControlledInput = ( {type, name, onChange, value, title, pattern} ) => {
 }
 
 const StyledInput = styled.input`
-    
+    width: 200px;
+    height: 25px;
 `
 ControlledInput.propTypes = {
     type: proptypes.string,
