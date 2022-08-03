@@ -30,6 +30,7 @@ export class App extends Component {
         alert(`${data.name} is already at contacts`);
         return (isInclude = true);
       }
+      return null
     });
     if (!isInclude) {
       this.setState({

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import proptypes from 'prop-types';
 import styled from 'styled-components';
-import Input from '../../atoms/Input/Input';
 
 class Contacts extends Component {
   onDeleteClick =(e) => {
@@ -14,7 +13,7 @@ class Contacts extends Component {
       <>
         {contacts.map(contact => {
           if (filterValue) {
-            return;
+            return null;
           }
           return (
             <li key={contact.name + contact.number}>

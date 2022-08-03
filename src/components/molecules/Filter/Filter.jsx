@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import proptypes from 'prop-types';
 import styled from 'styled-components';
-import Input from '../../atoms/Input/Input';
 
 class Filter extends Component {
   onDeleteClick = e => {
@@ -22,7 +21,7 @@ class Filter extends Component {
 
         {contacts.map(contact => {
           if (!value) {
-            return;
+            return null;
           }
           const lowerContact = contact.name.toLowerCase();
           if (lowerContact.includes(value.toLowerCase())) {
