@@ -3,6 +3,12 @@ import proptypes from 'prop-types';
 import styled from 'styled-components';
 
 class Filter extends Component {
+  shouldComponentUpdate(prevProps, prevState){
+    if(prevProps !== this.props || prevState !== this.state){
+      return true
+    }
+    return false
+  }
   onDeleteClick = e => {
     this.props.onDeleteClick(e, e.target.name);
   };
@@ -73,7 +79,7 @@ const LiStyled = styled.li`
   margin-left: 10px;
 `
 Filter.propTypes = {
-  contacts: proptypes.object,
+  contacts: proptypes.array,
   value: proptypes.string,
   onChange: proptypes.func,
 };
