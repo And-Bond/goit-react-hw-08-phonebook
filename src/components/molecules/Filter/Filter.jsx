@@ -37,6 +37,10 @@ class Filter extends Component {
                 </ButtonStyled>
               </LiStyled>
             );
+            
+          }
+          else{
+            return null
           }
         })}
       </>
