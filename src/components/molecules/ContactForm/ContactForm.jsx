@@ -9,12 +9,6 @@ class Form extends Component {
     name: "",
     number: ""
   }
-  shouldComponentUpdate(prevProps, prevState){
-    if(prevProps !== this.props || prevState !== this.state){
-      return true
-    }
-    return false
-  }
   onChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
