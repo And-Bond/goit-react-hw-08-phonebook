@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import ContactForm from './molecules/ContactForm/ContactForm';
 import Filter from './molecules/Filter/Filter';
@@ -6,14 +7,22 @@ import { nanoid } from 'nanoid';
 import styled from 'styled-components';
 export class App extends Component {
   state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
+    contacts: [],
     filter: '',
   };
+  componentDidMount(){
+    const load = key => {
+      try {
+        const serializedState = localStorage.getItem(key);
+        return serializedState === null ? undefined : JSON.parse(serializedState);
+      } catch (err) {
+        console.error('Get state error: ', err);
+      }
+    };
+    this.setState({
+      contacts: load('contacts')
+    })
+  }
   onFilterChange = e => {
     this.setState({
       filter: e.target.value,
@@ -39,6 +48,10 @@ export class App extends Component {
           { name: data.name, number: data.number, id: nanoid() },
         ],
       });
+      console.log(this.state.contacts)
+      setTimeout(() => {
+        console.log(this.state.contacts)
+        return localStorage.setItem('contacts', JSON.stringify(this.state.contacts))},1000)
     }
   };
   onDeleteClick = (e, data) => {
@@ -47,6 +60,7 @@ export class App extends Component {
         return contact.name !== data;
       }),
     });
+    setTimeout(() => { return localStorage.setItem('contacts', JSON.stringify(this.state.contacts))}, 1000)
   };
   render() {
     return (

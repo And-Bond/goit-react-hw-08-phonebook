@@ -3,6 +3,12 @@ import proptypes from 'prop-types';
 import styled from 'styled-components';
 
 class Contacts extends Component {
+  shouldComponentUpdate(prevProps, prevState){
+    if(prevProps !== this.props || prevState !== this.state){
+      return true
+    }
+    return false
+  }
   onDeleteClick =(e) => {
     this.props.onDeleteClick(e, e.target.name)
   }
