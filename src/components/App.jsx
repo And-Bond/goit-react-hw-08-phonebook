@@ -20,19 +20,15 @@ export class App extends Component {
     });
   };
   onSubmit = (e, data) => {
-    let isInclude = false;
     e.preventDefault();
     if (data.name === '' || data.number === '') {
       return;
     }
-    this.state.contacts.map(contact => {
-      if (contact.name === data.name) {
-        alert(`${data.name} is already at contacts`);
-        return (isInclude = true);
-      }
-      return null
-    });
-    if (!isInclude) {
+    const isInclude = this.state.contacts.find(({name}) => name === data.name)
+    if (isInclude) {
+      alert(`${data.name} is already at contacts`)
+    }
+    else{
       this.setState({
         contacts: [
           ...this.state.contacts,
@@ -41,12 +37,13 @@ export class App extends Component {
       });
     }
   };
-  onDeleteClick = (e, data) => {
+  onDeleteClick = ( id) => {
     this.setState({
       contacts: this.state.contacts.filter(contact => {
-        return contact.name !== data;
+        return contact.id !== id;
       }),
     });
+
   };
   render() {
     return (

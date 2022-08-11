@@ -3,9 +3,9 @@ import proptypes from 'prop-types';
 import styled from 'styled-components';
 
 class Filter extends Component {
-  onDeleteClick = e => {
-    this.props.onDeleteClick(e, e.target.name);
-  };
+  onDeleteClick = (contactId) => {
+    this.props.onDeleteClick(contactId)
+  }
   render() {
     const { value, onChange, contacts } = this.props;
     return (
@@ -26,10 +26,10 @@ class Filter extends Component {
           const lowerContact = contact.name.toLowerCase();
           if (lowerContact.includes(value.toLowerCase())) {
             return (
-              <LiStyled key={contact.name + contact.number}>
+              <LiStyled key={contact.id}>
                 {contact.name}: {contact.number}
                 <ButtonStyled
-                  onClick={this.onDeleteClick}
+                  onClick={() => this.onDeleteClick(contact.id)}
                   type="click"
                   name={contact.name}
                 >
@@ -37,10 +37,8 @@ class Filter extends Component {
                 </ButtonStyled>
               </LiStyled>
             );
-            
-          }
-          else{
-            return null
+          } else {
+            return null;
           }
         })}
       </>
@@ -51,7 +49,7 @@ class Filter extends Component {
 const PStyled = styled.p`
   display: inline;
   margin-left: 10px;
-`
+`;
 const ButtonStyled = styled.button`
   width: 100px;
   border: 1px solid gray;
@@ -61,19 +59,19 @@ const ButtonStyled = styled.button`
   color: black;
   font-weight: 800;
   background-color: #fff;
-`
+`;
 const InputStyled = styled.input`
   width: 200px;
   height: 25px;
   margin-left: 10px;
   display: block;
-  margin-top:10px;
+  margin-top: 10px;
 `;
 const LiStyled = styled.li`
   margin-left: 10px;
-`
+`;
 Filter.propTypes = {
-  contacts: proptypes.object,
+  contacts: proptypes.array,
   value: proptypes.string,
   onChange: proptypes.func,
 };

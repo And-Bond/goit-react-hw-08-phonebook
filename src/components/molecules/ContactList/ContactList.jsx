@@ -3,8 +3,8 @@ import proptypes from 'prop-types';
 import styled from 'styled-components';
 
 class Contacts extends Component {
-  onDeleteClick =(e) => {
-    this.props.onDeleteClick(e, e.target.name)
+  onDeleteClick = (contactId) => {
+    this.props.onDeleteClick(contactId)
   }
   render() {
     const { contacts, filterValue} = this.props;
@@ -18,7 +18,7 @@ class Contacts extends Component {
           return (
             <li key={contact.name + contact.number}>
               {contact.name}: {contact.number}
-              <ButtonStyled onClick={this.onDeleteClick} type='click' name={contact.name}>Delete</ButtonStyled>
+              <ButtonStyled onClick={() => this.onDeleteClick(contact.id)} type='click' name={contact.name}>Delete</ButtonStyled>
             </li>
           );
         })}
@@ -38,7 +38,7 @@ const ButtonStyled = styled.button`
   background-color: #fff;
 `
 Contacts.propTypes = {
-  contacts: proptypes.object,
+  contacts: proptypes.array,
   filterValue: proptypes.string
 }
 
