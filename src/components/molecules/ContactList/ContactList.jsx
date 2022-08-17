@@ -1,31 +1,52 @@
-import React, { Component } from 'react';
+import React from 'react';
 import proptypes from 'prop-types';
 import styled from 'styled-components';
 
-class Contacts extends Component {
-  onDeleteClick = (contactId) => {
-    this.props.onDeleteClick(contactId)
-  }
-  render() {
-    const { contacts, filterValue} = this.props;
-    
-    return (
-      <>
-        {contacts.map(contact => {
-          if (filterValue) {
-            return null;
-          }
-          return (
-            <li key={contact.name + contact.number}>
-              {contact.name}: {contact.number}
-              <ButtonStyled onClick={() => this.onDeleteClick(contact.id)} type='click' name={contact.name}>Delete</ButtonStyled>
-            </li>
-          );
-        })}
-      </>
-    );
-  }
+
+const Contacts = ({ contacts, filterValue, onDeleteClick}) => {
+  const onOwnDeleteClick = (contactId) => {
+        onDeleteClick(contactId)
+      }
+  return (
+          <>
+            {contacts.map(contact => {
+              if (filterValue) {
+                return null;
+              }
+              return (
+                <li key={contact.name + contact.number}>
+                  {contact.name}: {contact.number}
+                  <ButtonStyled onClick={() => onOwnDeleteClick(contact.id)} type='click' name={contact.name}>Delete</ButtonStyled>
+                </li>
+              );
+            })}
+          </>
+        );
 }
+// class Contacts extends Component {
+//   onDeleteClick = (contactId) => {
+//     this.props.onDeleteClick(contactId)
+//   }
+//   render() {
+//     const { contacts, filterValue} = this.props;
+    
+//     return (
+//       <>
+//         {contacts.map(contact => {
+//           if (filterValue) {
+//             return null;
+//           }
+//           return (
+//             <li key={contact.name + contact.number}>
+//               {contact.name}: {contact.number}
+//               <ButtonStyled onClick={() => this.onDeleteClick(contact.id)} type='click' name={contact.name}>Delete</ButtonStyled>
+//             </li>
+//           );
+//         })}
+//       </>
+//     );
+//   }
+// }
 
 const ButtonStyled = styled.button`
   width: 100px;
