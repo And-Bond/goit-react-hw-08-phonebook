@@ -11,7 +11,6 @@ const Filter = ({ value, onChange, contacts, onDeleteClick }) => {
           <>
             <PStyled>Find contacts by name</PStyled>
             <InputStyled
-              style={{ marginLeft: '10px' }}
               type="text"
               name="filter"
               value={value}

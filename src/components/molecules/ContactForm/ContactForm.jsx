@@ -3,6 +3,7 @@ import proptypes from 'prop-types';
 import styled from 'styled-components';
 import ControlledInput from '../../atoms/Input/Input';
 import Button from 'components/atoms/Button/Button';
+import { nanoid } from 'nanoid';
 
 const Form = ({ onSubmit }) => {
   const [name, setName] = useState('');
@@ -16,7 +17,7 @@ const Form = ({ onSubmit }) => {
     }
   };
   const onOwnSubmit = (e ) => {
-        const data = {name: name, number: number}
+        const data = {name: name, number: number, id: nanoid()}
         setName('')
         setNumber('')
         onSubmit(e,data)
