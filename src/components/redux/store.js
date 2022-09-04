@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import { ADD_CONTACT } from './types';
+import { ADD_CONTACT, ADD_FILTER, REMOVE_CONTACT } from './types';
 
 const initialStore = {
   contacts: {
@@ -16,15 +16,23 @@ const initialStore = {
 const reducer = (store = initialStore, { type, payload }) => {
   switch (type) {
     case ADD_CONTACT:
-      console.log('store.reducer works');
       const newContacts = [...store.contacts.items, payload];
-      console.log(newContacts);
       return {
         contacts: {
           items: [...newContacts],
           filter: '',
         },
+        
       };
+      case ADD_FILTER: 
+      return {
+        contacts: {...store.contacts, filter: payload}
+      }
+      case REMOVE_CONTACT: 
+      const filteredContacts = store.contacts.items.filter(contact => contact.id !== payload)
+      return {
+          contacts: {...store.contacts, items: filteredContacts}
+      }
     default:
       return store;
   }

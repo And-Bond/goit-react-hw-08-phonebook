@@ -4,9 +4,6 @@ import styled from 'styled-components';
 
 
 const Contacts = ({ contacts, filterValue, onDeleteClick}) => {
-  const onOwnDeleteClick = (contactId) => {
-        onDeleteClick(contactId)
-      }
   return (
           <>
             {contacts.map(contact => {
@@ -16,7 +13,7 @@ const Contacts = ({ contacts, filterValue, onDeleteClick}) => {
               return (
                 <li key={contact.name + contact.number}>
                   {contact.name}: {contact.number}
-                  <ButtonStyled onClick={() => onOwnDeleteClick(contact.id)} type='click' name={contact.name}>Delete</ButtonStyled>
+                  <ButtonStyled onClick={() => onDeleteClick(contact.id)} type='click' name={contact.name}>Delete</ButtonStyled>
                 </li>
               );
             })}

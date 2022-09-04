@@ -1,32 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ContactForm from './molecules/ContactForm/ContactForm';
 import Filter from './molecules/Filter/Filter';
 import ContactList from './molecules/ContactList/ContactList';
-import { nanoid } from 'nanoid';
 import styled from 'styled-components';
 import {  shallowEqual, useSelector, useDispatch } from 'react-redux';
-import { addContact } from './redux/actions';
+import { addContact, addFilter, removeContact } from './redux/actions';
 
 
 export const App = () => {
   const contacts = useSelector(store => store.contacts.items, shallowEqual)
-  console.log(contacts)
+  const filter = useSelector(store => store.contacts.filter, shallowEqual)
   const dispatch = useDispatch()
+
   const onAddContact = (payload) => {
     const action = addContact(payload)
     dispatch(action)
   }
-  const defaultContacts = [
-    { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-    { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-    { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-    { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-  ];
-  const [filter, setFilter] = useState('');
 
   const onFilterChange = e => {
-    setFilter(e.target.value);
+    const action = addFilter(e.target.value)
+    dispatch(action)
   };
+
   const onSubmit = (e, data) => {
     e.preventDefault();
     if (data.name === '' || data.number === '') {
@@ -40,14 +35,10 @@ export const App = () => {
       onAddContact(data)
     }
   };
-  // const onDeleteClick = id => {
-  //   setContacts(prevContacts => {
-  //     const filteredContacts = prevContacts.filter(contact => {
-  //       return contact.id !== id;
-  //     });
-  //     return [...filteredContacts];
-  //   });
-  // };
+  const onDeleteClick = id => {
+    const action = removeContact(id)
+    dispatch(action)
+  };
   return (
       <div>
         <h1>Phonebook</h1>
@@ -57,13 +48,13 @@ export const App = () => {
           contacts={contacts}
           value={filter}
           onChange={onFilterChange}
-          // onDeleteClick={onDeleteClick}
+          onDeleteClick={onDeleteClick}
         />
         <ListStyled>
           <ContactList
             filterValue={filter}
             contacts={contacts}
-            // onDeleteClick={onDeleteClick}
+            onDeleteClick={onDeleteClick}
           />
         </ListStyled>
       </div>

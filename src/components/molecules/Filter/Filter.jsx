@@ -1,12 +1,16 @@
 import React from 'react';
 import proptypes from 'prop-types';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
-
-const Filter = ({ value, onChange, contacts, onDeleteClick }) => {
+const Filter = ({ value, onChange, onDeleteClick }) => {
+  const contacts = useSelector(store => store.contacts.items)
+  const filter = useSelector(store => store.contacts.filter)
   const onOwnDeleteClick = (contactId) => {
         onDeleteClick(contactId)
       }
+      const filteredItems = contacts.filter(({name}) => name.toLowerCase().includes(filter.toLowerCase()))
+      console.log(filteredItems)
   return (
           <>
             <PStyled>Find contacts by name</PStyled>
@@ -17,74 +21,27 @@ const Filter = ({ value, onChange, contacts, onDeleteClick }) => {
               onChange={onChange}
             />
     
-            {contacts.map(contact => {
+            {filteredItems.map(contact => {
               if (!value) {
                 return null;
               }
-              const lowerContact = contact.name.toLowerCase();
-              if (lowerContact.includes(value.toLowerCase())) {
-                return (
-                  <LiStyled key={contact.id}>
-                    {contact.name}: {contact.number}
-                    <ButtonStyled
-                      onClick={() => onOwnDeleteClick(contact.id)}
-                      type="click"
-                      name={contact.name}
-                    >
-                      Delete
-                    </ButtonStyled>
-                  </LiStyled>
-                );
-              } else {
-                return null;
-              }
+              console.log(contact)
+              return (
+                    <LiStyled key={contact.id}>
+                      {contact.name}: {contact.number}
+                      <ButtonStyled
+                        onClick={() => onOwnDeleteClick(contact.id)}
+                        type="click"
+                        name={contact.name}
+                      >
+                        Delete
+                      </ButtonStyled>
+                    </LiStyled>
+                  );
             })}
           </>
         );
 }
-// class Filter extends Component {
-//   onDeleteClick = (contactId) => {
-//     this.props.onDeleteClick(contactId)
-//   }
-//   render() {
-//     const { value, onChange, contacts } = this.props;
-//     return (
-//       <>
-//         <PStyled>Find contacts by name</PStyled>
-//         <InputStyled
-//           style={{ marginLeft: '10px' }}
-//           type="text"
-//           name="filter"
-//           value={value}
-//           onChange={onChange}
-//         />
-
-//         {contacts.map(contact => {
-//           if (!value) {
-//             return null;
-//           }
-//           const lowerContact = contact.name.toLowerCase();
-//           if (lowerContact.includes(value.toLowerCase())) {
-//             return (
-//               <LiStyled key={contact.id}>
-//                 {contact.name}: {contact.number}
-//                 <ButtonStyled
-//                   onClick={() => this.onDeleteClick(contact.id)}
-//                   type="click"
-//                   name={contact.name}
-//                 >
-//                   Delete
-//                 </ButtonStyled>
-//               </LiStyled>
-//             );
-//           } else {
-//             return null;
-//           }
-//         })}
-//       </>
-//     );
-//   }
-// }
 
 const PStyled = styled.p`
   display: inline;
