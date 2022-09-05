@@ -20,30 +20,6 @@ const Contacts = ({ contacts, filterValue, onDeleteClick}) => {
           </>
         );
 }
-// class Contacts extends Component {
-//   onDeleteClick = (contactId) => {
-//     this.props.onDeleteClick(contactId)
-//   }
-//   render() {
-//     const { contacts, filterValue} = this.props;
-    
-//     return (
-//       <>
-//         {contacts.map(contact => {
-//           if (filterValue) {
-//             return null;
-//           }
-//           return (
-//             <li key={contact.name + contact.number}>
-//               {contact.name}: {contact.number}
-//               <ButtonStyled onClick={() => this.onDeleteClick(contact.id)} type='click' name={contact.name}>Delete</ButtonStyled>
-//             </li>
-//           );
-//         })}
-//       </>
-//     );
-//   }
-// }
 
 const ButtonStyled = styled.button`
   width: 100px;

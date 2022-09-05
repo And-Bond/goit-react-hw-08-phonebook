@@ -3,23 +3,24 @@ import ContactForm from './molecules/ContactForm/ContactForm';
 import Filter from './molecules/Filter/Filter';
 import ContactList from './molecules/ContactList/ContactList';
 import styled from 'styled-components';
-import {  shallowEqual, useSelector, useDispatch } from 'react-redux';
-import { addContact, addFilter, removeContact } from './redux/actions';
-
+import { shallowEqual, useSelector, useDispatch } from 'react-redux';
+import { addContact, removeContact } from './redux/Contacts/contacts-action';
+import { addFilter } from './redux/Filter/filter-action';
 
 export const App = () => {
-  const contacts = useSelector(store => store.contacts.items, shallowEqual)
-  const filter = useSelector(store => store.contacts.filter, shallowEqual)
-  const dispatch = useDispatch()
+  const contacts = useSelector(store => store.contacts.items, shallowEqual);
+  const filter = useSelector(store =>  store.contacts.filter, shallowEqual);
+  const dispatch = useDispatch();
 
-  const onAddContact = (payload) => {
-    const action = addContact(payload)
-    dispatch(action)
-  }
+  const onAddContact = payload => {
+    const action = addContact(payload);
+    dispatch(action);
+  };
 
   const onFilterChange = e => {
-    const action = addFilter(e.target.value)
-    dispatch(action)
+    console.log(e.target.value)
+    const action = addFilter(e.target.value);
+    dispatch(action);
   };
 
   const onSubmit = (e, data) => {
@@ -31,33 +32,33 @@ export const App = () => {
     if (isInclude) {
       alert(`${data.name} is already at contacts`);
     } else {
-      console.log('fun works')
-      onAddContact(data)
+      console.log('fun works');
+      onAddContact(data);
     }
   };
   const onDeleteClick = id => {
-    const action = removeContact(id)
-    dispatch(action)
+    const action = removeContact(id);
+    dispatch(action);
   };
   return (
-      <div>
-        <h1>Phonebook</h1>
-        <ContactForm onSubmit={onSubmit} />
-        <h2>Contacts</h2>
-        <Filter
+    <div>
+      <h1>Phonebook</h1>
+      <ContactForm onSubmit={onSubmit} />
+      <h2>Contacts</h2>
+      <Filter
+        contacts={contacts}
+        value={filter}
+        onChange={onFilterChange}
+        onDeleteClick={onDeleteClick}
+      />
+      <ListStyled>
+        <ContactList
+          filterValue={filter}
           contacts={contacts}
-          value={filter}
-          onChange={onFilterChange}
           onDeleteClick={onDeleteClick}
         />
-        <ListStyled>
-          <ContactList
-            filterValue={filter}
-            contacts={contacts}
-            onDeleteClick={onDeleteClick}
-          />
-        </ListStyled>
-      </div>
+      </ListStyled>
+    </div>
   );
 };
 

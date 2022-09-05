@@ -10,7 +10,6 @@ const Filter = ({ value, onChange, onDeleteClick }) => {
         onDeleteClick(contactId)
       }
       const filteredItems = contacts.filter(({name}) => name.toLowerCase().includes(filter.toLowerCase()))
-      console.log(filteredItems)
   return (
           <>
             <PStyled>Find contacts by name</PStyled>
