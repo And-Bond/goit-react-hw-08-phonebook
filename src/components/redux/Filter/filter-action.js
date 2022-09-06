@@ -1,8 +1,4 @@
-import { ADD_FILTER } from "./filter-types";
+import { createAction } from "@reduxjs/toolkit";
 
-export const addFilter = payload => {
-    return {
-      type: ADD_FILTER,
-      payload
-    }
-  }
+export const setFilter = createAction('filter/set')
+

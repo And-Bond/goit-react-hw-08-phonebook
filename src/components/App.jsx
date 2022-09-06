@@ -5,10 +5,10 @@ import ContactList from './molecules/ContactList/ContactList';
 import styled from 'styled-components';
 import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 import { addContact, removeContact } from './redux/Contacts/contacts-action';
-import { addFilter } from './redux/Filter/filter-action';
+import { setFilter } from './redux/Filter/filter-action';
 
 export const App = () => {
-  const contacts = useSelector(store => store.contacts.items, shallowEqual);
+  const contacts = useSelector(store =>  store.contacts.items, shallowEqual);
   const filter = useSelector(store =>  store.contacts.filter, shallowEqual);
   const dispatch = useDispatch();
 
@@ -19,7 +19,7 @@ export const App = () => {
 
   const onFilterChange = e => {
     console.log(e.target.value)
-    const action = addFilter(e.target.value);
+    const action = setFilter(e.target.value);
     dispatch(action);
   };
 
