@@ -7,19 +7,19 @@ import { nanoid } from 'nanoid';
 
 const Form = ({ onSubmit }) => {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
   const onChange = e => {
     if (e.target.name === 'name') {
       setName(e.target.value);
     }
     if (e.target.name === 'number') {
-      setNumber(e.target.value);
+      setPhone(e.target.value);
     }
   };
   const onOwnSubmit = (e ) => {
-        const data = {name: name, number: number, id: nanoid()}
+        const data = {name: name, phone: phone, id: nanoid()}
         setName('')
-        setNumber('')
+        setPhone('')
         onSubmit(e,data)
       }
   return (
@@ -39,7 +39,7 @@ const Form = ({ onSubmit }) => {
           type="tel"
           name="number"
           onChange={onChange}
-          value={number}
+          value={phone}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
         />

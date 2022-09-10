@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
 const Filter = ({ value, onChange, onDeleteClick }) => {
-  const contacts = useSelector(store => store.contacts.items)
-  const filter = useSelector(store => store.contacts.filter)
+  const contacts = useSelector(store => store.items)
+  const filter = useSelector(store => store.filter)
   const onOwnDeleteClick = (contactId) => {
         onDeleteClick(contactId)
       }
-      const filteredItems = contacts.filter(({name}) => name.toLowerCase().includes(filter.toLowerCase()))
+      const filteredItems = contacts?.filter(({name}) => name.toLowerCase().includes(filter.toLowerCase()))
   return (
           <>
             <PStyled>Find contacts by name</PStyled>
@@ -27,7 +27,7 @@ const Filter = ({ value, onChange, onDeleteClick }) => {
               console.log(contact)
               return (
                     <LiStyled key={contact.id}>
-                      {contact.name}: {contact.number}
+                      {contact.name}: {contact.phone}
                       <ButtonStyled
                         onClick={() => onOwnDeleteClick(contact.id)}
                         type="click"

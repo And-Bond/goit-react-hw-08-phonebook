@@ -6,13 +6,13 @@ import styled from 'styled-components';
 const Contacts = ({ contacts, filterValue, onDeleteClick}) => {
   return (
           <>
-            {contacts.map(contact => {
+            {contacts?.map(contact => {
               if (filterValue) {
                 return null;
               }
               return (
-                <li key={contact.name + contact.number}>
-                  {contact.name}: {contact.number}
+                <li key={contact.name + contact.phone}>
+                  {contact.name}: {contact.phone}
                   <ButtonStyled onClick={() => onDeleteClick(contact.id)} type='click' name={contact.name}>Delete</ButtonStyled>
                 </li>
               );

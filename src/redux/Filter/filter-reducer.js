@@ -1,8 +1,8 @@
 import { setFilter } from "./filter-action";
 import { createReducer } from "@reduxjs/toolkit";
-const initialStore = ''
 
-const reducer = createReducer(initialStore, {
+
+const reducer = createReducer('', {
   [setFilter.type] : (_,{payload}) =>  payload
 })
 
