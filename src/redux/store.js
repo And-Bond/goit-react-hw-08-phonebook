@@ -1,10 +1,5 @@
 import { configureStore  } from '@reduxjs/toolkit';
 
-import {
-  successReducer,
-  loadingReducer,
-  errorReducer,
-} from './Contacts/contacts-reducer';
 import * as slicer from './Contacts/contacts-slicer'
 import filterReducer from './Filter/filter-reducer';
 
