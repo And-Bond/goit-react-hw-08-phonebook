@@ -3,13 +3,10 @@ import proptypes from 'prop-types';
 import styled from 'styled-components';
 
 
-const Contacts = ({ contacts, filterValue, onDeleteClick}) => {
+const ContactList = ({ contacts, onDeleteClick}) => {
   return (
           <>
             {contacts?.map(contact => {
-              if (filterValue) {
-                return null;
-              }
               return (
                 <li key={contact.name + contact.phone}>
                   {contact.name}: {contact.phone}
@@ -31,9 +28,9 @@ const ButtonStyled = styled.button`
   font-weight: 800;
   background-color: #fff;
 `
-Contacts.propTypes = {
+ContactList.propTypes = {
   contacts: proptypes.array,
   filterValue: proptypes.string
 }
 
-export default Contacts;
+export default ContactList;

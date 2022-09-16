@@ -1,0 +1,22 @@
+.input {
+  width: 200px;
+  height: 25px;
+}
+.button {
+  width: 100px;
+  height: 25px;
+}
+.p {
+  display: inline;
+  margin: 0;
+}
+.form {
+  margin-left: 10px;
+  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border: 2px solid black;
+  width: 500px;
+  height: 250px;
+}
