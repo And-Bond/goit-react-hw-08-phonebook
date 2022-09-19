@@ -52,9 +52,9 @@ const Contacts = () => {
       <h1>Phonebook</h1>
       <ContactForm onSubmit={onSubmit} />
       <h2>Contacts</h2>
-      <p className={style.p}>Find contacts by name</p>
+      <p className={style.pCon}>Find contacts by name</p>
             <input
-            className={style.input}
+            className={style.inputCon}
               type="text"
               name="filter"
               value={filter}
@@ -64,7 +64,7 @@ const Contacts = () => {
         <Loader></Loader>
       ) : (
         <>
-          <ul className={style.ul}>
+          <ul className={style.ulCon}>
             <ContactList
               contacts={filteredContacts}
               onDeleteClick={onDeleteClick}

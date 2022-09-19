@@ -1,1 +1,1 @@
-export const getFilter = (({filter}) => filter)
+export const getFilter = (({contacts}) => contacts.filter)

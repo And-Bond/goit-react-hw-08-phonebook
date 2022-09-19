@@ -1,16 +1,22 @@
-.input {
+.inputCon {
   width: 200px;
   height: 25px;
 }
-.button {
+.buttonCon {
   width: 100px;
   height: 25px;
+  border: none;
+  border-radius: 15%;
 }
-.p {
+.buttonCon:hover{
+  background-color: blue;
+  color: black;
+}
+.pCon {
   display: inline;
   margin: 0;
 }
-.form {
+.formCon {
   margin-left: 10px;
   padding-left: 10px;
   display: flex;

@@ -1,6 +1,7 @@
-export const getContacts = ({items}) => items
-export const getLoading = (({loading}) => loading)
-export const getFilteredContacts = ({items, filter}) => {
+export const getContacts = ({contacts}) => contacts.items
+export const getLoading = (({contacts}) => contacts.loading)
+export const getFilteredContacts = ({contacts}) => {
+    const {items, filter } = contacts
     const lowerFilter = filter.toLowerCase()
     const filteredContacts = items.filter(({name}) => {
         const lowerName = name.toLowerCase()

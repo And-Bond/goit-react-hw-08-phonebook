@@ -1,8 +1,8 @@
-.p{
+.pCon{
     display: inline;
      margin-left: 10px;
 }
-.input{
+.inputCon{
     width: 200px;
      height: 25px;
      margin-left: 10px;
@@ -10,7 +10,7 @@
      margin-top: 10px;
 }
 
-.ul{
+.ulCon{
     margin-left: 10px;
   display: flex;
   flex-direction: column;

@@ -22,10 +22,10 @@ const ContactForm = ({ onSubmit }) => {
   };
   return (
     <>
-      <form className={style.form} onSubmit={onOwnSubmit}>
-        <p className={style.p}>Name</p>
+      <form className={style.formCon} onSubmit={onOwnSubmit}>
+        <p className={style.pCon}>Name</p>
         <input
-          className={style.input}
+          className={style.inputCon}
           type="text"
           name="name"
           onChange={onChange}
@@ -34,10 +34,10 @@ const ContactForm = ({ onSubmit }) => {
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
         />
 
-        <p className={style.p}>Tel</p>
+        <p className={style.pCon}>Tel</p>
 
         <input
-          className={style.input}
+          className={style.inputCon}
           type="tel"
           name="number"
           onChange={onChange}
@@ -45,7 +45,7 @@ const ContactForm = ({ onSubmit }) => {
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
         />
-        <button className={style.button} type="submit">{'Add contact'}</button>
+        <button className={style.buttonCon} type="submit">{'Add contact'}</button>
       </form>
     </>
   );
