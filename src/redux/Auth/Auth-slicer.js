@@ -18,10 +18,9 @@ export const authSlice = createSlice({
       store.error = null;
     },
     [authRegister.fulfilled]: (store, { payload }) => {
-      store.user = payload.user;
       store.token = payload.token;
       store.loading = false;
-     
+      store.user = payload.user;
     },
     [authRegister.rejected]: (store, { payload }) => {
       store.error = payload;

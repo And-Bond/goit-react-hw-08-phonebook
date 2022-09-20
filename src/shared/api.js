@@ -22,11 +22,12 @@ export const deleteContact = async(contactId) => {
 }
 
 const instanceAuth = axios.create({
-    baseURL: 'https://connections-api.herokuapp.com/'
+    baseURL: 'https://connections-api.herokuapp.com'
 })
 
 export const register = async(newUser) => {
-    const {data: result} = await instanceAuth.post(newUser)
+    const {data: result} = await instanceAuth.post('/users/signup', newUser)
+    console.log(result)
     const {user, token} = result
     return {user, token}
 }
