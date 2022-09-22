@@ -27,7 +27,10 @@ const instanceAuth = axios.create({
 
 export const register = async(newUser) => {
     const {data: result} = await instanceAuth.post('/users/signup', newUser)
-    console.log(result)
-    const {user, token} = result
-    return {user, token}
+    return result
+}
+
+export const logIn = async(newLogin) => {
+    const {data: result} = await instanceAuth.post('/users/login', newLogin)
+    return result
 }

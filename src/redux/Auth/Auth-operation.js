@@ -1,22 +1,31 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { register } from "shared/api";
+import { register, logIn } from "shared/api";
 export const authRegister = createAsyncThunk(
     'auth/register',
-    async(newUser, thunkApi) => {
+    async(newUser, {rejectWithValue}) => {
         try {
-            console.log('works-operation')
-            const data = await register(newUser)
-            console.log(data)
-            const {user} = data
-            if(user !== undefined){
-                console.log('user is not undefind')
-                return data
-            }
-            console.log('user is undefind')
-            thunkApi.rejectWithValue('Error')
-        } catch (error) {
-            thunkApi.rejectWithValue(error)
+            const {user, token} = await register(newUser)
+            return {user, token}
+        } catch ({response}) {
+            const {data} = response
+            const keyValue = data.keyValue.email
+            return rejectWithValue(`${keyValue} is not resolved, try again or check if ure registered yet`)
         }
     }
 )
 
+export const authLogin = createAsyncThunk(
+    'auth/login',
+    async(newLogin, {rejectWithValue}) => {
+        
+        try {
+            const {user, token} = await logIn(newLogin)
+            if(!{user, token}){
+                return rejectWithValue('Login failed, invalid email or password. Check if ure registered')
+            }
+            return {user, token} 
+        } catch (error) {
+            return rejectWithValue('Login failed, invalid email or password. Check if ure registered')
+        }
+    }
+)

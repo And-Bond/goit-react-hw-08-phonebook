@@ -13,20 +13,26 @@ import {
   removeContact,
   getFetchedContacts,
 } from 'redux/Contacts/contacts-operation';
+import { getLoginState } from 'redux/Auth/Auth-selectors';
+import {useNavigate} from 'react-router-dom'
 
 const Contacts = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate()
   const store = useSelector(store => store, shallowEqual)
 
   const contacts = getContacts(store)
   const loading = getLoading(store)
   const filter = getFilter(store)
   const filteredContacts = getFilteredContacts(store)
+  const isLogin = getLoginState(store)
 
   useEffect(() => {
     dispatch(getFetchedContacts());
-  }, [dispatch]);
+    if(!isLogin){
+      navigate('/login')
+    }
+  }, [dispatch, isLogin,navigate]);
 
   const onFilterChange = e => {
     dispatch(setFilter(e.target.value));
