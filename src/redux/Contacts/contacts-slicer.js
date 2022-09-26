@@ -7,7 +7,7 @@ export const itemsSlice = createSlice({
   extraReducers: {
     [getFetchedContacts.fulfilled]: (_, {payload}) =>  payload,
     [postContacts.fulfilled]: (store, {payload}) => [...store, payload],
-    [removeContact.fulfilled]: (store, {payload}) => store.filter(contact => contact.id !== payload)
+    [removeContact.fulfilled]: (store, {payload}) => store.filter(contact => contact.id === payload)
   },
 });
 

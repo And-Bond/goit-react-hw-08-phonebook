@@ -7,7 +7,7 @@ import Loader from 'components/modules/Loader/Loader';
 import { setFilter } from 'redux/Filter/filter-action';
 import style from './Contacts.module.css'
 import {getFilter} from 'redux/Filter/filter-selectors';
-import { getContacts, getLoading, getFilteredContacts } from 'redux/Contacts/contacts-selectors';
+import { getContacts, getLoading, getFilteredContacts, getContactsError } from 'redux/Contacts/contacts-selectors';
 import {
   postContacts,
   removeContact,
@@ -22,10 +22,12 @@ const Contacts = () => {
   const store = useSelector(store => store, shallowEqual)
 
   const contacts = getContacts(store)
+  console.log(contacts);
   const loading = getLoading(store)
   const filter = getFilter(store)
   const filteredContacts = getFilteredContacts(store)
   const isLogin = getLoginState(store)
+  const error = getContactsError(store)
 
   useEffect(() => {
     dispatch(getFetchedContacts());
@@ -70,6 +72,7 @@ const Contacts = () => {
         <Loader></Loader>
       ) : (
         <>
+        {error && <div>{error}</div>}
           <ul className={style.ulCon}>
             <ContactList
               contacts={filteredContacts}

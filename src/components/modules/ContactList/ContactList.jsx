@@ -8,8 +8,8 @@ const ContactList = ({ contacts, onDeleteClick}) => {
           <>
             {contacts?.map(contact => {
               return (
-                <li key={contact.name + contact.phone}>
-                  {contact.name}: {contact.phone}
+                <li key={contact.name + contact.number}>
+                  {contact.name}: {contact.number}
                   <ButtonStyled onClick={() => onDeleteClick(contact.id)} type='click' name={contact.name}>Delete</ButtonStyled>
                 </li>
               );
