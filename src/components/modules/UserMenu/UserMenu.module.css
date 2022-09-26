@@ -1,0 +1,30 @@
+.userDiv{
+    width: 350px;
+    height: 50px;
+    border: black 2px solid;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.userEmail{
+    font-size: 20px;
+    margin-top: 9px;
+    font-weight: 700;
+    color: black;
+    display: flex;
+}
+.userButton{
+    width: 150px;
+    height: 25px;
+    background-color: blue;
+    color: white;
+    font-size: 17px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.userButton:hover{
+    background-color: #fff;
+    color: black
+}

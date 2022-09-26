@@ -32,5 +32,12 @@ export const register = async(newUser) => {
 
 export const logIn = async(newLogin) => {
     const {data: result} = await instanceAuth.post('/users/login', newLogin)
+    instanceAuth.defaults.headers.common.authorization = result.token
+    return result
+}
+
+
+export const logOut = async() => {
+    const {data: result} = await instanceAuth.post('/users/logout')
     return result
 }
