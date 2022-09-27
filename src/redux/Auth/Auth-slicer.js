@@ -57,6 +57,7 @@ export const authSlice = createSlice({
     [authLogout.rejected]: (store, {payload}) => {
       store.loading = false
       store.error = payload
+      
     }
   },
 });

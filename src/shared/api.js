@@ -23,8 +23,7 @@ export const deleteContact = async(contactId, token) => {
     const {data} = await instanseContacts.delete(`/${contactId}`, {headers: {
         authorization: token
     }})
-    const {name, phone, id} = data
-    return {name, phone, id}
+    return {data,contactId}
 }
 
 const instanceAuth = axios.create({

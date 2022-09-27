@@ -22,14 +22,13 @@ const Contacts = () => {
   const store = useSelector(store => store, shallowEqual)
 
   const contacts = getContacts(store)
-  console.log(contacts);
   const loading = getLoading(store)
   const filter = getFilter(store)
   const filteredContacts = getFilteredContacts(store)
   const isLogin = getLoginState(store)
   const error = getContactsError(store)
   const token = getAuthToken(store)
-  console.log(token)
+
 
   useEffect(() => {
     dispatch(getFetchedContacts(token));
