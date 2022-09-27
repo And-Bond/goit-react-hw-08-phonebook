@@ -1,4 +1,5 @@
 import React from 'react';
+import { lazy } from 'react';
 import ContactForm from 'components/modules/ContactForm/ContactForm';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { useEffect } from 'react';
@@ -8,13 +9,14 @@ import { setFilter } from 'redux/Filter/filter-action';
 import style from './Contacts.module.css'
 import {getFilter} from 'redux/Filter/filter-selectors';
 import { getContacts, getLoading, getFilteredContacts, getContactsError } from 'redux/Contacts/contacts-selectors';
+import { getLoginState, getAuthData, getAuthToken } from 'redux/Auth/Auth-selectors';
+import {useNavigate} from 'react-router-dom'
 import {
   postContacts,
   removeContact,
-  getFetchedContacts,
+  getFetchedContacts
 } from 'redux/Contacts/contacts-operation';
-import { getLoginState } from 'redux/Auth/Auth-selectors';
-import {useNavigate} from 'react-router-dom'
+
 
 const Contacts = () => {
   const dispatch = useDispatch();
@@ -22,19 +24,21 @@ const Contacts = () => {
   const store = useSelector(store => store, shallowEqual)
 
   const contacts = getContacts(store)
-  console.log(contacts);
+  const userData = getAuthData(store)
   const loading = getLoading(store)
   const filter = getFilter(store)
   const filteredContacts = getFilteredContacts(store)
   const isLogin = getLoginState(store)
   const error = getContactsError(store)
+  const token = getAuthToken(store)
 
   useEffect(() => {
-    dispatch(getFetchedContacts());
+    dispatch(getFetchedContacts(token));
     if(!isLogin){
       navigate('/login')
     }
-  }, [dispatch, isLogin,navigate]);
+
+  }, [dispatch, isLogin,navigate, userData.email, userData.password,token]);
 
   const onFilterChange = e => {
     dispatch(setFilter(e.target.value));
@@ -45,7 +49,8 @@ const Contacts = () => {
     if (data.name === '' || data.number === '') {
       return;
     }
-    const isInclude = contacts.find(({ name }) => name === data.name);
+    console.log(data)
+    const isInclude = contacts.find((contact) => contact?.name === data.name);
     if (isInclude) {
       alert(`${data.name} is already at contacts`);
     } else {

@@ -1,10 +1,12 @@
 import axios from "axios";
+import { store } from "redux/store";
 
 const instanseContacts = axios.create({
     baseURL: 'https://connections-api.herokuapp.com/contacts'
 })
 
-export const getContacts = async() => {
+export const getContacts = async(token) => {
+    instanseContacts.defaults.headers.common.authorization = token
     const {data} = await instanseContacts.get('/')
     return data;
 }
