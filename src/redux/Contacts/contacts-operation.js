@@ -3,9 +3,9 @@ import { getContacts, postContact, deleteContact } from '../../shared/api';
 
 export const getFetchedContacts = createAsyncThunk(
   'contacts/fetch',
-  async (_, thunkApi) => {
+  async (token, thunkApi) => {
     try {
-      const data = await getContacts();
+      const data = await getContacts(token);
       return data;
     } catch ({response}) {
       const {data} = response
@@ -16,9 +16,9 @@ export const getFetchedContacts = createAsyncThunk(
 
 export const postContacts = createAsyncThunk(
   'contacts/post',
-  async (contact, thunkApi) => {
+  async ({data, token}, thunkApi) => {
     try {
-      const newContact = await postContact(contact);
+      const newContact = await postContact(data, token);
       return newContact;
     } catch ({response}) {
       const {data} = response
@@ -29,9 +29,9 @@ export const postContacts = createAsyncThunk(
 
 export const removeContact = createAsyncThunk(
   'contacts/delete',
-  async (id, thunkApi) => {
+  async ({id, token}, thunkApi) => {
     try {
-      const contact = await deleteContact(id);
+      const contact = await deleteContact(id,token);
       return contact.id;
     } catch ({response}) {
       const {data} = response

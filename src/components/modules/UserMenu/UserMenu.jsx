@@ -10,7 +10,7 @@ const UserMenu = () => {
 
   const token = getAuthToken(store);
   const email = getAuthEmail(store);
-  console.log(email);
+  // console.log(token);
 
   const onLogoutClick = () => {
     dispatch(authLogout(token))

@@ -13,7 +13,7 @@ import {
   removeContact,
   getFetchedContacts,
 } from 'redux/Contacts/contacts-operation';
-import { getLoginState } from 'redux/Auth/Auth-selectors';
+import { getLoginState, getAuthToken } from 'redux/Auth/Auth-selectors';
 import {useNavigate} from 'react-router-dom'
 
 const Contacts = () => {
@@ -28,13 +28,15 @@ const Contacts = () => {
   const filteredContacts = getFilteredContacts(store)
   const isLogin = getLoginState(store)
   const error = getContactsError(store)
+  const token = getAuthToken(store)
+  console.log(token)
 
   useEffect(() => {
-    dispatch(getFetchedContacts());
+    dispatch(getFetchedContacts(token));
     if(!isLogin){
       navigate('/login')
     }
-  }, [dispatch, isLogin,navigate]);
+  }, [dispatch, isLogin,navigate, token]);
 
   const onFilterChange = e => {
     dispatch(setFilter(e.target.value));
@@ -49,11 +51,19 @@ const Contacts = () => {
     if (isInclude) {
       alert(`${data.name} is already at contacts`);
     } else {
-      dispatch(postContacts(data));
+      const postObj = {
+        data: data,
+        token
+      }
+      dispatch(postContacts(postObj));
     }
   };
   const onDeleteClick = id => {
-    dispatch(removeContact(id));
+    const idObj = {
+      id,
+      token
+    }
+    dispatch(removeContact(idObj));
   };
   return (
     <>

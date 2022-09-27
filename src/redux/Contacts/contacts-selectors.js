@@ -1,10 +1,13 @@
 export const getContacts = ({ contacts }) => contacts.items;
 export const getLoading = ({ contacts }) => contacts.loading;
 export const getFilteredContacts = ({ contacts }) => {
+  if(contacts.length < 1){
+    return
+  }
   const { items, filter } = contacts;
   const lowerFilter = filter.toLowerCase();
   const filteredContacts = items.filter((contact) => {
-    const lowerName = contact?.toLowerCase();
+    const lowerName = contact?.name.toLowerCase();
     return lowerName?.includes(lowerFilter);
   });
   return filteredContacts;

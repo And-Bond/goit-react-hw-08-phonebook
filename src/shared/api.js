@@ -4,19 +4,25 @@ const instanseContacts = axios.create({
     baseURL: 'https://connections-api.herokuapp.com/contacts'
 })
 
-export const getContacts = async() => {
-    const {data} = await instanseContacts.get('/')
+export const getContacts = async(token) => {
+    const {data} = await instanseContacts.get('/', {headers: {
+        authorization: token
+    }})
     return data;
 }
 
-export const postContact = async(contact) => {
-    const {data} = await instanseContacts.post('/', contact)
+export const postContact = async(contact, token) => {
+    const {data} = await instanseContacts.post('/', contact, {headers: {
+        authorization: token
+    }})
     const {name, number, id} = data
     return {name, number, id}
 }
 
-export const deleteContact = async(contactId) => {
-    const {data} = await instanseContacts.delete(`/${contactId}`)
+export const deleteContact = async(contactId, token) => {
+    const {data} = await instanseContacts.delete(`/${contactId}`, {headers: {
+        authorization: token
+    }})
     const {name, phone, id} = data
     return {name, phone, id}
 }
@@ -40,7 +46,9 @@ export const logIn = async(newLogin) => {
 }
 
 
-export const logOut = async() => {
+export const logOut = async(token) => {
+    instanceAuth.defaults.headers.common.authorization = token
+    console.log(token)
     const {data: result} = await instanceAuth.post('/users/logout')
     instanceAuth.defaults.headers.common.authorization = null
     instanseContacts.defaults.headers.common.authorization = null
