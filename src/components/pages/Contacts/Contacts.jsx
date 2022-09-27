@@ -45,7 +45,7 @@ const Contacts = () => {
     if (data.name === '' || data.number === '') {
       return;
     }
-    const isInclude = contacts.find(({ name }) => name === data.name);
+    const isInclude = contacts.find((contact) => contact?.name === data.name);
     if (isInclude) {
       alert(`${data.name} is already at contacts`);
     } else {
